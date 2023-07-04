@@ -1,0 +1,6 @@
+FROM python:3.11-slim
+LABEL authors="phorton@sonatype.com"
+
+RUN pip install my-weather-api
+
+ENTRYPOINT ["flask", "--app", "api", "run"]
