@@ -1,0 +1,37 @@
+image: python:3.11
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+
+before_script:
+  - pip config set global.index https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi
+  - pip config set global.index-url https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi/simple
+  - pip config list
+  - pip install poetry
+  - poetry install
+  - source `poetry env info --path`/bin/activate
+
+stages:
+  - test
+  - build
+
+building:
+  stage: build
+  needs: [testing]
+  script:
+    - echo "This is the build stage"
+    # - poetry config repositories.proxy https://repo.phorton.eu.ngrok.io/repository/pupy
+    # - echo "Proxy to PyPi configured ..."
+    - poetry build
+    - echo "Build done ..."
+    - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted
+    - poetry publish --repository hosted -u $REPO_USERNAME -p $REPO_PASSWORD
+    - echo "Publishing done!"
+
+testing:
+  stage: test
+  script:
+    - echo "This is the test stage"
