@@ -20,7 +20,7 @@ stages:
 
 building:
   stage: build
-  needs: [testing]
+  needs: [testing, iq_policy_eval]
   script:
     - echo "This is the build stage"
     # - poetry config repositories.proxy https://repo.phorton.eu.ngrok.io/repository/pupy
@@ -30,6 +30,11 @@ building:
     - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted/
     - poetry publish --repository hosted -u $REPO_USERNAME -p $REPO_PASSWORD
     - echo "Publishing done!"
+
+testing:
+  stage: test
+  script:
+    - echo "This is the test stage"
 
 iq_policy_eval:
   stage: test
