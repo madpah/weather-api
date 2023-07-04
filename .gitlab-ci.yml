@@ -7,8 +7,8 @@ variables:
 
 
 before_script:
-  - pip config set global.index https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi
-  - pip config set global.index-url https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi/simple
+  - pip config set global.index https://repo.phorton.eu.ngrok.io/repository/pupy/pypi
+  - pip config set global.index-url https://repo.phorton.eu.ngrok.io/repository/pupy/simple
   - pip config list
   - pip install poetry
   - poetry install
