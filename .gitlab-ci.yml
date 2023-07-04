@@ -35,7 +35,7 @@ publish:
     - echo "This is the publish stage"
     - git config --global user.email "phorton@sonatype.com"
     - git config --global user.name "Paul Horton"
-    - semantic-release publish -v DEBUG
+    - semantic-release publish -D hvcs=gitlab -v DEBUG
     - echo "Publishing done!"
 
 testing:
