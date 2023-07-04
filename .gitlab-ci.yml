@@ -29,12 +29,11 @@ building:
 publish:
   stage: publish
   needs: [testing, iq_policy_eval]
+  before_script:
+    - pip install python-semantic-release
   script:
     - echo "This is the publish stage"
-    - pip install python-semantic-release
-    - git config --global user.email "phorton@sonatype.com"
-    - git config --global user.name "Paul Horton"
-    - semantic-release publish
+    - semantic-release publish -v DEBUG
     - echo "Publishing done!"
 
 testing:
