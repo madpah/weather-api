@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "my-weather-api"
-version = "0.1.0"
+version = "0.0.0"
 description = ""
 authors = ["Paul Horton <phorton@sonatype.com>"]
 readme = "README.md"
