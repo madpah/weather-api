@@ -15,29 +15,36 @@ before_script:
   - source `poetry env info --path`/bin/activate
 
 stages:
-  - test
   - build
+  - test
+  - publish
 
 building:
   stage: build
-  needs: [testing, iq_policy_eval]
   script:
     - echo "This is the build stage"
-    # - poetry config repositories.proxy https://repo.phorton.eu.ngrok.io/repository/pupy
-    # - echo "Proxy to PyPi configured ..."
     - poetry build
     - echo "Build done ..."
-    - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted/
-    - poetry publish --repository hosted -u $REPO_USERNAME -p $REPO_PASSWORD
+
+publish:
+  stage: publish
+  needs: [testing, iq_policy_eval]
+  before_script:
+    - pip install python-semantic-release
+  script:
+    - echo "This is the publish stage"
+    - semantic-release publish
     - echo "Publishing done!"
 
 testing:
   stage: test
+  needs: [building]
   script:
     - echo "This is the test stage"
 
 iq_policy_eval:
   stage: test
+  needs: [building]
   image: sonatype/gitlab-nexus-iq-pipeline:latest
   before_script:
     - ''
