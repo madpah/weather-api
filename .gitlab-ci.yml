@@ -33,6 +33,8 @@ publish:
     - pip install python-semantic-release
   script:
     - echo "This is the publish stage"
+    - git config --global user.email "phorton@sonatype.com"
+    - git config --global user.name "Paul Horton"
     - semantic-release publish -v DEBUG
     - echo "Publishing done!"
 
