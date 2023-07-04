@@ -27,7 +27,7 @@ building:
     # - echo "Proxy to PyPi configured ..."
     - poetry build
     - echo "Build done ..."
-    - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted
+    - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted/
     - poetry publish --repository hosted -u $REPO_USERNAME -p $REPO_PASSWORD
     - echo "Publishing done!"
 
