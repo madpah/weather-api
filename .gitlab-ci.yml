@@ -39,6 +39,8 @@ testing:
 iq_policy_eval:
   stage: test
   image: sonatype/gitlab-nexus-iq-pipeline:latest
+  before_script:
+    - ''
   script:
     - /sonatype/evaluate -i weather-api__madpah .
   artifacts:
