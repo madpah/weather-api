@@ -8,8 +8,11 @@ variables:
 
 before_script:
   - pip install poetry
+  - pip config set global.index='https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi'
+  - pip config set global.index='https://repo.phorton.eu.ngrok.io/repository/pupy-proxy/pypi'
   - poetry install
   - source `poetry env info --path`/bin/activate
+  - pip config list
 
 stages:
   - test
@@ -20,12 +23,12 @@ building:
   needs: [testing]
   script:
     - echo "This is the build stage"
-    - poetry config repositories.proxy https://repo.phorton.eu.ngrok.io/repository/pupy
-    - echo "Proxy to PyPi configured ..."
+    # - poetry config repositories.proxy https://repo.phorton.eu.ngrok.io/repository/pupy
+    # - echo "Proxy to PyPi configured ..."
     - poetry build
     - echo "Build done ..."
     - poetry config repositories.hosted https://repo.phorton.eu.ngrok.io/repository/pupy-hosted
-    - poetry publish --repository hosted -u YOURUSERNAME -p YOURTOKEN
+    - poetry publish --repository hosted -u $REPO_USERNAME -p $REPO_PASSWORD
     - echo "Publishing done!"
 
 testing:
