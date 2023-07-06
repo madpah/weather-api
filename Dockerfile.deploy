@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM docker-python-3.11:latest
 LABEL authors="phorton@sonatype.com"
 
 RUN pip install my-weather-api
